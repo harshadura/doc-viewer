@@ -61,21 +61,9 @@ public class ShowDocs extends HttpServlet {
             }
             out.println("</TABLE></P>");
 
-        } catch (SQLException e) {
-            out.println("An error occured while retrieving " + "all docs: "
-                    + e.toString());
         } catch (Exception e) {
-            throw (new ServletException(e.toString()));
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-            }
+           System.out.println("An error occured while retrieving " + "all docs: " + e.toString());
+           e.printStackTrace();
         }
         out.println("</center>");
         out.println("</body>");

@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ByTag extends HttpServlet {
 
@@ -24,15 +21,8 @@ public class ByTag extends HttpServlet {
 
         String tagsName = request.getParameter("tags").toString();
 
-//        String tagParts[] = tagsName.split(",");
-//        int tagsSize = tagParts.length;
-//        if(tagsSize > 0){
-//            for (int i=0; i< tagsSize; i++){
-//               tagParts[i];
-//            }
-//
-//        }
-        
+        String tagParts[] = tagsName.split(",");
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<html>");
@@ -45,39 +35,53 @@ public class ByTag extends HttpServlet {
             dbConnect = new DBConnect();
             conn = dbConnect.connect();
             stmt = conn.createStatement();
-            String orderBy = request.getParameter("sort");
 
-            String query = "SELECT uuid, content, tags from doc";
+            String query = "SELECT * from doc";
             ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                String uuid = rs.getInt("uuid") + "";
-                String content = rs.getString("content");
-                String tags = rs.getString("tags");
 
-                out.print(uuid + "::");
-                out.print(content + "::");
-                out.print(tags + "::");
-                out.print("<br/>");
+            out.println("<P ALIGN='center'><TABLE BORDER=1>");
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            // table header
+            out.println("<TR>");
+            for (int i = 0; i < columnCount; i++) {
+                out.println("<TH>" + rsmd.getColumnLabel(i + 1) + "</TH>");
             }
-        } catch (SQLException e) {
-            out.println("An error occured while retrieving " + "all docs: "
-                    + e.toString());
+            out.println("</TR>");
+            // the data
+            while (rs.next()) {
+
+                String tagNow = rs.getString("tags");
+                String tagNowParts[] = tagNow.split(",");
+
+                boolean foundSwitch = false;
+                for(int i = 0; i < tagParts.length; i++)
+                {
+                    for (int j = 0; j < tagNowParts.length;j++)
+                    {
+                        if( tagParts[i].equals(tagNowParts[j]))
+                        {
+                            foundSwitch = true;
+                            out.println("<TR>");
+                            for (int k = 0; k < columnCount; k++) {
+                                out.println("<TD>" + rs.getString(k + 1) + "</TD>");
+                            }
+                            out.println("</TR>");
+                        }
+                    }
+                foundSwitch = false;
+                }
+            }
+            out.println("</TABLE></P>");
+
         } catch (Exception e) {
-            throw (new ServletException(e.toString()));
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-            }
+            System.out.println("An error occured while retrieving docs search by tags: " + e);
+            e.printStackTrace();
         }
         out.println("</center>");
         out.println("</body>");
         out.println("</html>");
         out.close();
     }
+
 }
