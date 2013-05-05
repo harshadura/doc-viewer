@@ -1,10 +1,15 @@
 doc-viewer
 ==========
 
-How to RUN:
+How to RUN
+----------
+
 1. First run the SQL queries under (DB_with_sampleData.sql)
+
 2. Change the username, password (if needed) under the (doc.properties) file
+
 3. Fire:  mvn clean install jetty:run
+
 4. Logs will be created on (UserHome/doc-viewer-AppLog.log)
 
 Assignment Spec
