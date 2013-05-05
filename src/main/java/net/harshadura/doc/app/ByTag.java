@@ -24,6 +24,15 @@ public class ByTag extends HttpServlet {
 
         String tagsName = request.getParameter("tags").toString();
 
+//        String tagParts[] = tagsName.split(",");
+//        int tagsSize = tagParts.length;
+//        if(tagsSize > 0){
+//            for (int i=0; i< tagsSize; i++){
+//               tagParts[i];
+//            }
+//
+//        }
+        
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<html>");
@@ -37,13 +46,7 @@ public class ByTag extends HttpServlet {
             conn = dbConnect.connect();
             stmt = conn.createStatement();
             String orderBy = request.getParameter("sort");
-            if ((orderBy == null) || orderBy.equals("")) {
-                orderBy = "SSN";
-            }
-            String orderByDir = request.getParameter("sortdir");
-            if ((orderByDir == null) || orderByDir.equals("")) {
-                orderByDir = "asc";
-            }
+
             String query = "SELECT uuid, content, tags from doc";
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -55,7 +58,6 @@ public class ByTag extends HttpServlet {
                 out.print(content + "::");
                 out.print(tags + "::");
                 out.print("<br/>");
-
             }
         } catch (SQLException e) {
             out.println("An error occured while retrieving " + "all docs: "

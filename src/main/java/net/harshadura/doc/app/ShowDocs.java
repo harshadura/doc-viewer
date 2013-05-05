@@ -37,14 +37,7 @@ public class ShowDocs extends HttpServlet {
             dbConnect = new DBConnect();
             conn = dbConnect.connect();
             stmt = conn.createStatement();
-            String orderBy = request.getParameter("sort");
-            if ((orderBy == null) || orderBy.equals("")) {
-                orderBy = "SSN";
-            }
-            String orderByDir = request.getParameter("sortdir");
-            if ((orderByDir == null) || orderByDir.equals("")) {
-                orderByDir = "asc";
-            }
+
             String query = "SELECT uuid, content, tags from doc";
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
