@@ -19,6 +19,16 @@
         <url-pattern>/show-docs</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>byTag</servlet-name>
+        <servlet-class>net.harshadura.doc.app.ByTag</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>byTag</servlet-name>
+        <url-pattern>/show-docs-bytag</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 
 

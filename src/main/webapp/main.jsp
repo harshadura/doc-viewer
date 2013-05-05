@@ -27,7 +27,7 @@
     </fieldset>
 </form>
 
-<form id='login' action='' method='post' accept-charset='UTF-8'>
+<form id='login' action='show-docs-bytag' method='post' accept-charset='UTF-8'>
     <fieldset >
         <legend>Search Document</legend>
         <label for='tags' >Search by Tags:</label>
