@@ -5,12 +5,7 @@ import net.harshadura.doc.db.PropertyLoader;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +20,9 @@ public class ShowDocs extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+
+
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<html>");
@@ -38,19 +36,31 @@ public class ShowDocs extends HttpServlet {
             conn = dbConnect.connect();
             stmt = conn.createStatement();
 
+
             String query = "SELECT uuid, content, tags from doc";
             ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                String uuid = rs.getInt("uuid") + "";
-                String content = rs.getString("content");
-                String tags = rs.getString("tags");
 
-                out.print(uuid + "::");
-                out.print(content + "::");
-                out.print(tags + "::");
-                out.print("<br/>");
-
+            int rowCount = 0;
+            out.println("<P ALIGN='center'><TABLE BORDER=1>");
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            // table header
+            out.println("<TR>");
+            for (int i = 0; i < columnCount; i++) {
+                out.println("<TH>" + rsmd.getColumnLabel(i + 1) + "</TH>");
             }
+            out.println("</TR>");
+            // the data
+            while (rs.next()) {
+                rowCount++;
+                out.println("<TR>");
+                for (int i = 0; i < columnCount; i++) {
+                    out.println("<TD>" + rs.getString(i + 1) + "</TD>");
+                }
+                out.println("</TR>");
+            }
+            out.println("</TABLE></P>");
+
         } catch (SQLException e) {
             out.println("An error occured while retrieving " + "all docs: "
                     + e.toString());
