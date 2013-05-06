@@ -2,7 +2,6 @@ package net.harshadura.doc.app;
 
 import net.harshadura.doc.db.DBConnect;
 import net.harshadura.doc.db.PropertyLoader;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,6 @@ public class ByTag extends HttpServlet {
             throws ServletException, IOException {
 
         String tagsName = request.getParameter("tags").toString();
-
         String tagParts[] = tagsName.split(",");
 
         response.setContentType("text/html");
@@ -71,13 +69,13 @@ public class ByTag extends HttpServlet {
                             out.println("</TR>");
                         }
                     }
-                foundSwitch = false;
+                    foundSwitch = false;
                 }
             }
             out.println("</TABLE></P>");
 
             if(nothingFoundFlag==true){
-               out.println("<br/><h2>Nothing Found Search By Tag: " + tagsName + "</h2>");
+                out.println("<br/><h2>Nothing Found Search By Tag: " + tagsName + "</h2>");
             }
 
         } catch (Exception e) {
