@@ -1,16 +1,23 @@
 doc-viewer
 ==========
 
+@author: harshadura
+@license: GPL-v3
+
+Tools: Java 1.6, MySQL, Maven with Jetty plugin/Tomcat
+
 How to RUN
 ----------
 
-1. First run the SQL queries under (DB_with_sampleData.sql)
+1. First run the SQL queries under (DB_with_sampleData.sql): Default DB name: doc
 
 2. Change the username, password (if needed) under the (doc.properties) file
 
 3. Fire:  mvn clean install jetty:run
 
-4. Logs will be created on (UserHome/doc-viewer-AppLog.log)
+4. Login the system with default user: harsha, pass: 123 
+
+5. Logs will be created at (UserHome/doc-viewer-AppLog.log)
 
 Assignment Spec
 ----------------
@@ -30,11 +37,13 @@ If possible, consider sorting the documents based on the relevancy to the search
 Evaluation Notes:
 
 Standard criteria for code-quality and adherence to standards, accuracy, robustness, code comments and self-documented code.
+
 Database Skills - Schema Design, Correct use of DB access APIs / tools, SQL
+
 HTML / Javascript skills - Use of available open source libraries where applicable
+
 Analytical skills - If a scoring is implemented
+
 Build Scripting (If used)- Maven / Ant - Cleanness and adherence to best practices for the tools.
-
-
 
 
