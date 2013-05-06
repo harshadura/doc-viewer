@@ -2,6 +2,7 @@ doc-viewer
 ==========
 
 @author: harshadura
+
 @license: GPL-v3
 
 Tools: Java 1.6, MySQL, Maven with Jetty plugin/Tomcat
