@@ -48,6 +48,7 @@ public class ByTag extends HttpServlet {
                 out.println("<TH>" + rsmd.getColumnLabel(i + 1) + "</TH>");
             }
             out.println("</TR>");
+            boolean nothingFoundFlag = true;
             // the data
             while (rs.next()) {
 
@@ -61,6 +62,7 @@ public class ByTag extends HttpServlet {
                     {
                         if( tagParts[i].equals(tagNowParts[j]))
                         {
+                            nothingFoundFlag=false;
                             foundSwitch = true;
                             out.println("<TR>");
                             for (int k = 0; k < columnCount; k++) {
@@ -73,6 +75,10 @@ public class ByTag extends HttpServlet {
                 }
             }
             out.println("</TABLE></P>");
+
+            if(nothingFoundFlag==true){
+               out.println("<br/><h2>Nothing Found Search By Tag: " + tagsName + "</h2>");
+            }
 
         } catch (Exception e) {
             System.out.println("An error occured while retrieving docs search by tags: " + e);
