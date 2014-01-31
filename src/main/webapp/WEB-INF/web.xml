@@ -29,6 +29,17 @@
         <url-pattern>/show-docs-bytag</url-pattern>
     </servlet-mapping>
 
+    <!-- activated per default -->
+    <context-param>
+        <param-name>org.apache.sirona.reporting.activated</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <!-- path in the application default is /sirona -->
+    <context-param>
+        <param-name>org.apache.sirona.reporting.mapping</param-name>
+        <param-value>/monitoring</param-value>
+    </context-param>
+
 </web-app>
 
 

@@ -144,10 +144,22 @@
             <version>4.2.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.sirona</groupId>
+            <artifactId>sirona-core</artifactId>
+            <version>${sirona.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.sirona</groupId>
+            <artifactId>sirona-reporting</artifactId>
+            <version>${sirona.version}</version>
+            <classifier>classes</classifier>
+        </dependency>
 
     </dependencies>
 
     <properties>
         <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
+        <sirona.version>0.1-incubating</sirona.version>
     </properties>
 </project>
